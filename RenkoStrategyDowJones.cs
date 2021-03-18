@@ -39,7 +39,7 @@ namespace NinjaTrader.NinjaScript.Strategies
 				EntriesPerDirection							= 1;
 				EntryHandling								= EntryHandling.AllEntries;
 				IsExitOnSessionCloseStrategy				= true;
-				ExitOnSessionCloseSeconds					= 600;
+				ExitOnSessionCloseSeconds					= 960;
 				IsFillLimitOnTouch							= false;
 				MaximumBarsLookBack							= MaximumBarsLookBack.Infinite;
 				OrderFillResolution							= OrderFillResolution.High;
@@ -60,67 +60,41 @@ namespace NinjaTrader.NinjaScript.Strategies
 			{
 				AddDataSeries(new BarsPeriod()
 				{
-					BarsPeriodType							= (BarsPeriodType)12345,	//ninzaRenko's ID
-					Value 									= 12,						// Brick Size
-					Value2 									= 4							// Trend Threshold
+					BarsPeriodType = (BarsPeriodType)12345,	//ninzaRenko's ID
+					Value = 12,								// Brick Size
+					Value2 = 4								// Trend Threshold
 				});
 				
 			}
 			else if (State == State.DataLoaded)
 			{				
-				SMA1				= SMA(Close, 50);
+				SMA1 = SMA(Close, 50);
 			}
 		}
 
 		protected override void OnBarUpdate()
 		{
-			//Aquí SetTrailStop()
-			
-			int indiceBarraActual = ChartBars.ToIndex;
-			
-			//ARREGLAR ESTA MIERDA
-			double precioApertura = Bars.GetOpen(indiceBarraActual);
-			double precioStopLossLargo = precioApertura-40;
-			double precioStopLossCorto = precioApertura+40;
-			//ARREGLAR ESTA MIERDA
-			
-			if (BarsInProgress != 0) 
-				return;
+			if (BarsInProgress != 0)
+			{
+				return;	
+			}
 
 			if (CurrentBars[0] < 1)
-				return;
-
-			 // Set 1 Entrada en LARGO
-			if ((Open[0] > SMA1[0])
-				 && (Close[0] > SMA1[0])
-				 && (Low[0] > SMA1[0]))
+			{
+				return;	
+			}
+			
+			//SET ENTRADA EN LARGO
+			if ((Open[0] > SMA1[0]) && (Close[0] > SMA1[0]) && (Low[0] > SMA1[0]))
 			{
 				EnterLong(Convert.ToInt32(DefaultQuantity), "Largo");
-				SetStopLoss("Largo", CalculationMode.Price, precioStopLossLargo, true);
 			}
 			
-			 // Set 2 Entrada en CORTO
-			if ((Open[0] < SMA1[0])
-				 && (Close[0] < SMA1[0])
-				 && (High[0] < SMA1[0]))
+			//SET ENTRADA EN CORTO
+			if ((Open[0] < SMA1[0]) && (Close[0] < SMA1[0]) && (High[0] < SMA1[0]))
 			{
 				EnterShort(Convert.ToInt32(DefaultQuantity), "Corto");
-				SetStopLoss("Corto", CalculationMode.Price, precioStopLossCorto, true);
 			}
-			
 		}
-		/*
-		protected bool isEntryLong()
-		{
-			if ((Open[0] > SMA1[0])
-				 && (Close[0] > SMA1[0])
-				 && (Low[0] > SMA1[0]))
-			{
-				return true;
-			}
-			
-			return false;
-		}
-		*/
 	}
 }
