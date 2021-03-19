@@ -29,6 +29,10 @@ namespace NinjaTrader.NinjaScript.Strategies
 {
 	public class RenkoStrategyDowJones : Strategy {
 		private SMA SMA1;
+		private const string API_TOKEN = "1796241443:AAGN9aI3VgYP7fTI9ze0QLkn8FvH9p-_WRU";
+		private const string CHAT_ID = "@pscapital01bot";
+		private TelegramBotClient Bot;
+		private Chart ch;
 
 		protected override void OnStateChange() {
 			if (State == State.SetDefaults) {
@@ -85,6 +89,7 @@ namespace NinjaTrader.NinjaScript.Strategies
 				SMA1 = SMA(Close, 10); // Esta media nos reporta más beneficios operando 24/7
 				//SetProfitTarget("Largo", CalculationMode.Ticks, 10);  RATIO NEGATIVO - REALIZA OPERACIONES SIN CRUZAR LA MEDIA
 				//SetProfitTarget("Corto", CalculationMode.Ticks, 10);  RATIO NEGATIVO - REALIZA OPERACIONES SIN CRUZAR LA MEDIA
+				Bot = new TelegramBotClient(API_TOKEN);
 			}
 		}
 
