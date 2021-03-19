@@ -30,8 +30,8 @@ namespace NinjaTrader.NinjaScript.Strategies
 
 		protected override void OnStateChange() {
 			if (State == State.SetDefaults) {
-				Description = @"Enter the description for your new custom Strategy here.";
-				Name = "RenkoStrategyDowJones";
+				Description = @"PS HFT Robot.";
+				Name = "RenkoStrategyDowJones v2";
 				Calculate = Calculate.OnBarClose;
                 /* Establece la forma en que se manejarán las órdenes de entrada
                     EntryHandling.AllEntries -> procesará todos los métodos de entrada de pedidos hasta que se alcancen las entradas máximas permitidas establecidas por la propiedad EntriesPerDirection mientras está en una posición abierta.
