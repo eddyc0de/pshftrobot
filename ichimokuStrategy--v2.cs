@@ -151,7 +151,7 @@ namespace NinjaTrader.NinjaScript.Strategies
 					ExitShort();
 				}
 			} 
-			else if (ToTime(Time[0]) >= endTrades)
+			else if (ToTime(Time[0]) <= startTrades || ToTime(Time[0]) >= endTrades)
 			{
 				if (isEntryLongAllowed == true)
 				{
