@@ -150,7 +150,8 @@ namespace NinjaTrader.NinjaScript.Strategies
 				{
 					ExitShort();
 				}
-			} else if (ToTime(Time[0]) >= endTrades)
+			} 
+			else if (ToTime(Time[0]) >= endTrades)
 			{
 				if (isEntryLongAllowed == true)
 				{
@@ -163,12 +164,6 @@ namespace NinjaTrader.NinjaScript.Strategies
 				}
 			}
 		}
-		
-//		//PARA OPERAR EN REAL-TIME
-//		protected override void OnMarketData(MarketDataEventArgs marketDataUpdate)
-//		{
-//			Print("On Market Data");
-//		}
 		
 		//CALCULO DE LAS MEDIAS
 		protected void OnCalculateTenkan()
